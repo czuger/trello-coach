@@ -1,0 +1,2 @@
+class TaskRecord < ApplicationRecord
+end
