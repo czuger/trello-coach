@@ -12,9 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180104142253) do
 
-  create_table "task_records", force: :cascade do |t|
-    t.string "list_name", null: false
-    t.integer "cards_count", null: false
+  create_table "tasks_records", force: :cascade do |t|
+    t.integer "done_count", null: false
+    t.integer "todo_count", null: false
+    t.boolean "stock_line", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
