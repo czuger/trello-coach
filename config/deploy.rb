@@ -4,6 +4,9 @@ lock '~> 3.10.1'
 set :application, 'trello-coach'
 set :repo_url, 'git@github.com:czuger/trello-coach.git'
 
+set :rbenv_type, :user
+set :rbenv_ruby, '2.5.0'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
