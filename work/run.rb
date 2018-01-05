@@ -13,6 +13,7 @@ watched_lists = %w( Boring Urgent Fun )
 
 Trello.client.find_many( Trello::List, "/boards/#{todo_board.id}/lists" ).each do |list|
   next unless watched_lists.include?( list.name )
-  cards_count = Trello.client.find_many( Trello::Card, "/list/#{list.id}/cards" ).count
-
+  Trello.client.find_many( Trello::Card, "/list/#{list.id}/cards" ).each do |card|
+    p card
+  end
 end

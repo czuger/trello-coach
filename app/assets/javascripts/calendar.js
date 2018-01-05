@@ -14,7 +14,7 @@ window.onload = function() {
 
     var svg = d3.select("body")
         .selectAll("svg")
-        .data(d3.range(2009, 2010))
+        .data(d3.range(2017, 2017))
         .enter().append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -48,15 +48,15 @@ window.onload = function() {
     //     .enter().append("path")
     //     .attr("d", pathMonth);
 
-    d3.csv("dji.csv", function(error, csv) {
+    d3.json("tasks_records/data.json", function(error, json) {
         if (error) throw error;
 
-        console.log( csv );
+        console.log( json );
 
         var data = d3.nest()
             .key(function(d) { return d.Date; })
-            .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-            .object(csv);
+            .rollup(function(d) { return d[0].DoneCount; })
+            .object(json);
 
         console.log( data );
 
