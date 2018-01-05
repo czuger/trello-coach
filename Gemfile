@@ -52,6 +52,10 @@ group :development do
   gem 'launchy'
 
   gem 'factory_bot_rails'
+
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.3'
+  gem 'capistrano-rbenv', '~> 2.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
