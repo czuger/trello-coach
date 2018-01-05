@@ -14,7 +14,7 @@ window.onload = function() {
 
     var svg = d3.select("body")
         .selectAll("svg")
-        .data(d3.range(2017, 2017))
+        .data(d3.range(2018, 2019))
         .enter().append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -40,13 +40,13 @@ window.onload = function() {
         .attr("y", function(d) { return d.getDay() * cellSize; })
         .datum(d3.timeFormat("%Y-%m-%d"));
 
-    // svg.append("g")
-    //     .attr("fill", "none")
-    //     .attr("stroke", "#000")
-    //     .selectAll("path")
-    //     .data(function(d) { return d3.timeMonths(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-    //     .enter().append("path")
-    //     .attr("d", pathMonth);
+    svg.append("g")
+        .attr("fill", "none")
+        .attr("stroke", "#000")
+        .selectAll("path")
+        .data(function(d) { return d3.timeMonths(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+        .enter().append("path")
+        .attr("d", pathMonth);
 
     d3.json("tasks_records/data.json", function(error, json) {
         if (error) throw error;
@@ -63,7 +63,7 @@ window.onload = function() {
         rect.filter(function(d) { return d in data; })
             .attr("fill", function(d) { return color(data[d]); })
             .append("title")
-            .text(function(d) { return d + ": " + formatPercent(data[d]); });
+            .text(function(d) { return d + ": " + data[d] + " tasks done"; });
     });
 
     function pathMonth(t0) {
