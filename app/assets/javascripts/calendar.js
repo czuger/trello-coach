@@ -12,7 +12,7 @@ window.onload = function() {
         .domain([-1, 12])
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
-    var svg = d3.select("body")
+    var svg = d3.select("#calendar")
         .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
