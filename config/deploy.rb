@@ -27,7 +27,7 @@ set :rbenv_ruby, '2.5.0'
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'db/production.sqlite3'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'credentials'
 
 # Default value for default_env is {}
 # set :default_env, { path: '/opt/ruby/bin:$PATH' }
