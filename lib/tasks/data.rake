@@ -6,11 +6,13 @@ namespace :data do
   task retrieve: :environment do
 
     Trello.configure do |config|
-      config.developer_public_key = File.open( 'credentials/developer_key.priv' ).read
-      config.member_token = File.open( 'credentials/token.priv' ).read
+      config.developer_public_key = File.open( 'credentials/developer_key.priv' ).read.strip
+      config.member_token = File.open( 'credentials/token.priv' ).read.strip
     end
 
-    user = Trello::Member.find(File.open( 'credentials/username.priv' ).read )
+
+
+    user = Trello::Member.find(File.open( 'credentials/username.priv' ).read.strip )
 
     todo_board = Hash[ user.boards.map{ |e| [ e.name, e ] } ][ 'TODO' ]
 
