@@ -6,7 +6,7 @@ namespace :data do
   task retrieve: :environment do
 
     Trello.configure do |config|
-      config.developer_public_key = File.open( 'credentials/developper_key.priv' ).read
+      config.developer_public_key = File.open( 'credentials/developer_key.priv' ).read
       config.member_token = File.open( 'credentials/token.priv' ).read
     end
 
