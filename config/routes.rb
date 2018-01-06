@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'monitoring/show'
+
   get 'tasks_records/show'
   get 'tasks_records/data'
 
