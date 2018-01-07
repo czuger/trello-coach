@@ -66,4 +66,4 @@ gem 'ruby-trello'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'jquery-rails'
-gem 'lazy'
+gem 'lazy_high_charts'

@@ -1,5 +1,12 @@
 class TasksRecordsController < ApplicationController
+
   def show
+    @tasks_chart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.series(name: 'Todo tasks', yAxis: 0, data: TasksRecord.where( stock_line: false ).pluck( :todo_count ) )
+      f.yAxis [ {title: {text: 'Todo tasks', margin: 70} } ]
+      f.xAxis( categories:  TasksRecord.where( stock_line: false ).pluck( :created_at ).map{ |e| e.strftime( '%F' ) } )
+      # f.responsive( rules: [ { condition: { maxWidth: 500 } } ] )
+    end
   end
 
   def data
