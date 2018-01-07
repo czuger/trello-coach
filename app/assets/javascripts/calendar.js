@@ -2,6 +2,8 @@
 
 window.onload = function() {
 
+    console.log( 'Loading D3 graph' )
+
     var width = 960,
         height = 136,
         cellSize = 17;
