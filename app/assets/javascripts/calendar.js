@@ -11,7 +11,7 @@ window.onload = function() {
     var formatPercent = d3.format(".1%");
 
     var color = d3.scaleQuantize()
-        .domain([-1, 12])
+        .domain([0, 6])
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
     var svg = d3.select("#calendar")
