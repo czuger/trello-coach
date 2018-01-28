@@ -5,26 +5,48 @@ namespace :data do
   desc 'Read data from trello'
   task retrieve: :environment do
 
+    credentials = YAML.load( File.open( 'credentials/data.yml.priv', 'r' ).read )
+
+    p credentials
+
+
     Trello.configure do |config|
-      config.developer_public_key = File.open( 'credentials/developer_key.priv' ).read.strip
-      config.member_token = File.open( 'credentials/token.priv' ).read.strip
+      config.developer_public_key = credentials['developer_key']
+      config.member_token = credentials['token']
     end
 
+    user = Trello::Member.find(credentials['username'] )
+    # list = Trello::List.find(credentials['list_ids']['fun'])
 
+    counts = { todo: 0, done: 0 }
 
-    user = Trello::Member.find(File.open( 'credentials/username.priv' ).read.strip )
-
-    todo_board = Hash[ user.boards.map{ |e| [ e.name, e ] } ][ 'TODO' ]
-
-    todo_list = %w( Boring Fun Urgent )
-    done_list = %w( Done )
-
-    todo_count = done_count = 0
-
-    Trello.client.find_many( Trello::List, "/boards/#{todo_board.id}/lists" ).each do |list|
-      todo_count += Trello.client.find_many( Trello::Card, "/list/#{list.id}/cards" ).count if todo_list.include?( list.name )
-      done_count += Trello.client.find_many( Trello::Card, "/list/#{list.id}/cards" ).count if done_list.include?( list.name )
+    counts.keys.each do |k|
+      credentials['list_ids'][k.to_s].each do |l_id|
+        counts[k] += Trello::List.find( l_id ).cards.count
+      end
     end
+
+    p counts
+
+    # c = Trello::Card.find(credentials['blender_card_id'])
+
+    checklist = Trello::Checklist.find(credentials['blender_checklist_id'])
+    check_items = checklist.check_items
+    # pp check_items
+    # pp checklist.items.first
+    # pp check_items[0]['state']
+    # pp checklist
+
+    cis = Trello::CheckItemState.find(credentials['blender_checklist_state_id'])
+    pp cis
+
+    # Trello.client.find_many( Trello::List, "/boards/#{todo_board.id}/lists" ).each do |list|
+    #   p list
+    # end
+
+    check_items[0]['state'] = 'uncomplete'
+
+    # p checklist.update_fields( 'checkItems' => check_items )
 
     stock_line = (TasksRecord.count == 0)
     TasksRecord.create(done_count: done_count, todo_count: todo_count, stock_line: stock_line )
