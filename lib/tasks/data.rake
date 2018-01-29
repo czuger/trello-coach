@@ -33,20 +33,44 @@ namespace :data do
     checklist = Trello::Checklist.find(credentials['blender_checklist_id'])
     check_items = checklist.check_items
     # pp check_items
-    # pp checklist.items.first
+    checklist_state = checklist.items.first
+    p checklist_state
     # pp check_items[0]['state']
     # pp checklist
 
-    cis = Trello::CheckItemState.find(credentials['blender_checklist_state_id'])
-    pp cis
+    # cis = Trello::CheckItemState.find(credentials['blender_checklist_state_id'])
+    # pp cis
 
     # Trello.client.find_many( Trello::List, "/boards/#{todo_board.id}/lists" ).each do |list|
     #   p list
     # end
 
-    check_items[0]['state'] = 'uncomplete'
+    # check_items[0]['state'] = 'uncomplete'
+    #
+    # p check_items
+    #
+    # # p checklist.update_fields( 'checkItems' => check_items )
+    #
 
-    # p checklist.update_fields( 'checkItems' => check_items )
+    # TODO : the api method seem wrong. Check if can fix it
+=begin
+    def update_item_state(item_id, state)
+      client.put(
+          "/cards/#{card_id}/checklist/#{id}/checkItem/#{item_id}/state",
+          value: state,
+      )
+    end
+  should be :
+    def update_item_state(item_id, state)
+      client.put(
+          "/cards/#{card_id}/checkItem/#{item_id}",
+          value: state,
+maybe : idChecklist: id # try without
+      )
+    end
+=end
+
+    checklist.update_item_state( checklist_state.id, 'uncomplete' )
 
     stock_line = (TasksRecord.count == 0)
     TasksRecord.create(done_count: done_count, todo_count: todo_count, stock_line: stock_line )
