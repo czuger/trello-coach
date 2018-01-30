@@ -2,7 +2,7 @@
 
 function load_trello() {
 
-    console.log( 'Loading D3 graph' )
+    // console.log( 'Loading D3 graph' )
 
     var width = 960,
         height = 136,
@@ -14,10 +14,10 @@ function load_trello() {
         .domain([0, 6])
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
-    console.log( d3.select("#trello-calendar") );
+    // console.log( d3.select("#trello-calendar") );
 
     var svg = d3.select("#trello-calendar")
-        // .selectAll("svg")
+        .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
         .attr("width", width)
@@ -25,7 +25,7 @@ function load_trello() {
         .append("g")
         .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
 
-    console.log( svg )
+    // console.log( svg )
 
     svg.append("text")
         .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
@@ -57,7 +57,7 @@ function load_trello() {
     d3.json("tasks_records/data.json", function(error, json) {
         if (error) throw error;
 
-        console.log( json );
+        // console.log( json );
 
         json = json.tasks_data;
 
@@ -66,7 +66,7 @@ function load_trello() {
             .rollup(function(d) { return d[0].DoneCount; })
             .object(json);
 
-        console.log( data );
+        // console.log( data );
 
         rect.filter(function(d) { return d in data; })
             .attr("fill", function(d) { return color(data[d]); })
@@ -87,7 +87,7 @@ function load_trello() {
 
 };
 
-// $(load_trello());
+$(load_trello);
 
 // $(document).ready(load_trello());
-$(window).load(load_trello());
+// $(window).load(load_trello());

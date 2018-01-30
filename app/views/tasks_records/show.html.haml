@@ -4,7 +4,13 @@
   #main-row.container
     %h1.text-center
       Current activity
+    %h2.text-center
+      Trello monitoring
     #trello-calendar
+    %h2.text-center
+      Blender monitoring
     #blender-calendar
 
-    = high_chart( 'tasks_chart', @tasks_chart )
+  %h2.text-center
+    Tasks stock
+  = high_chart( 'tasks_chart', @tasks_chart )
