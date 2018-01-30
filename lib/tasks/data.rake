@@ -7,16 +7,12 @@ namespace :data do
 
     credentials = YAML.load( File.open( 'credentials/data.yml.priv', 'r' ).read )
 
-    p credentials
-
+    # p credentials
 
     Trello.configure do |config|
       config.developer_public_key = credentials['developer_key']
       config.member_token = credentials['token']
     end
-
-    user = Trello::Member.find(credentials['username'] )
-    # list = Trello::List.find(credentials['list_ids']['fun'])
 
     counts = { todo: 0, done: 0 }
 
@@ -26,55 +22,36 @@ namespace :data do
       end
     end
 
-    p counts
-
-    # c = Trello::Card.find(credentials['blender_card_id'])
+    # p counts
+    stock_line = (TasksRecord.count == 0)
+    TasksRecord.create!(done_count: counts[:done], todo_count: counts[:todo], stock_line: stock_line )
 
     checklist = Trello::Checklist.find(credentials['blender_checklist_id'])
-    check_items = checklist.check_items
-    # pp check_items
-    checklist_state = checklist.items.first
-    p checklist_state
-    # pp check_items[0]['state']
-    # pp checklist
+    checklist_item = checklist.items.first
+    # p checklist_item.state
+    BlenderSurvey.create!(blender_task_done: checklist_item.state == 'complete' )
 
-    # cis = Trello::CheckItemState.find(credentials['blender_checklist_state_id'])
-    # pp cis
+    checklist.update_item_state( checklist_item.id, false )
 
-    # Trello.client.find_many( Trello::List, "/boards/#{todo_board.id}/lists" ).each do |list|
-    #   p list
-    # end
+  end
 
-    # check_items[0]['state'] = 'uncomplete'
-    #
-    # p check_items
-    #
-    # # p checklist.update_fields( 'checkItems' => check_items )
-    #
+  desc 'Generate test data'
+  task generate: :environment do
 
-    # TODO : the api method seem wrong. Check if can fix it
-=begin
-    def update_item_state(item_id, state)
-      client.put(
-          "/cards/#{card_id}/checklist/#{id}/checkItem/#{item_id}/state",
-          value: state,
-      )
+    TasksRecord.delete_all
+    BlenderSurvey.delete_all
+
+    done_count = 0
+    todo_count = 10
+    start_date = Date.new( 2018, 1, 1 )
+
+    0.upto(100).each do |day|
+      stock_line = (TasksRecord.count == 0)
+      TasksRecord.create!( done_count: done_count, todo_count: todo_count, stock_line: stock_line, created_at: start_date+day )
+      BlenderSurvey.create!(blender_task_done: rand( 1 .. 2 ) == 1, created_at: start_date+day )
+      done_count += rand( 0 .. 6 )
+      todo_count += rand( 0 .. 10 )
     end
-  should be :
-    def update_item_state(item_id, state)
-      client.put(
-          "/cards/#{card_id}/checkItem/#{item_id}",
-          value: state,
-maybe : idChecklist: id # try without
-      )
-    end
-=end
-
-    checklist.update_item_state( checklist_state.id, 'uncomplete' )
-
-    stock_line = (TasksRecord.count == 0)
-    TasksRecord.create(done_count: done_count, todo_count: todo_count, stock_line: stock_line )
-
   end
 
 end

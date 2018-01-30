@@ -1,6 +1,6 @@
 // From : https://bl.ocks.org/mbostock/4063318
 
-window.onload = function() {
+function load_trello() {
 
     console.log( 'Loading D3 graph' )
 
@@ -14,7 +14,7 @@ window.onload = function() {
         .domain([0, 6])
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
-    var svg = d3.select("#calendar")
+    var svg = d3.select("#trello-calendar")
         .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
@@ -22,6 +22,8 @@ window.onload = function() {
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+
+    console.log( svg )
 
     svg.append("text")
         .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
@@ -55,6 +57,8 @@ window.onload = function() {
 
         console.log( json );
 
+        json = json.tasks_data;
+
         var data = d3.nest()
             .key(function(d) { return d.Date; })
             .rollup(function(d) { return d[0].DoneCount; })
@@ -80,3 +84,8 @@ window.onload = function() {
     }
 
 };
+
+// $(load_trello());
+
+// $(document).ready(load_trello());
+$(window).load(load_trello());

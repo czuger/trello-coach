@@ -1,0 +1,2 @@
+class BlenderSurvey < ApplicationRecord
+end

@@ -14,14 +14,19 @@ class TasksRecordsController < ApplicationController
     # pp TasksRecord.all
 
     last_closed_tasks_count = TasksRecord.where( stock_line: true ).first.done_count
-    data = []
+    tasks_data = []
+    blender_data = []
 
     TasksRecord.where( stock_line: false ).order( 'id' ).all.each do |task_record|
-      data << { 'DoneCount' => task_record.done_count - last_closed_tasks_count, 'Date' => task_record.created_at.strftime( '%F' ) }
+      tasks_data << { 'DoneCount' => task_record.done_count - last_closed_tasks_count, 'Date' => task_record.created_at.strftime( '%F' ) }
       last_closed_tasks_count = task_record.done_count
     end
 
-    render json: data
+    BlenderSurvey.order( 'id' ).each do |blender_survey|
+      blender_data << { 'Done' => blender_survey.blender_task_done ? 1 : 0, 'Date' => blender_survey.created_at.strftime( '%F' ) }
+    end
+
+    render json: { tasks_data: tasks_data, blender_data: blender_data }
   end
 
 end
