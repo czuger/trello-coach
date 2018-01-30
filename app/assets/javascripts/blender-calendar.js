@@ -15,7 +15,7 @@ function load_blender() {
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
     var svg = d3.select("#blender-calendar")
-        .selectAll("svg")
+        // .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
         .attr("width", width)

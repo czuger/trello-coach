@@ -14,8 +14,10 @@ function load_trello() {
         .domain([0, 6])
         .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
+    console.log( d3.select("#trello-calendar") );
+
     var svg = d3.select("#trello-calendar")
-        .selectAll("svg")
+        // .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
         .attr("width", width)
