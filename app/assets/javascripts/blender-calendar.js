@@ -2,7 +2,7 @@
 
 function load_blender() {
 
-    console.log( 'Loading D3 graph' )
+    // console.log( 'Loading D3 graph' )
 
     var width = 960,
         height = 136,
@@ -11,11 +11,12 @@ function load_blender() {
     var formatPercent = d3.format(".1%");
 
     var color = d3.scaleQuantize()
-        .domain([0, 6])
-        .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+        .domain([0, 1])
+        // .range(["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+        .range(["#ffffff", "#d9ef8b"]);
 
     var svg = d3.select("#blender-calendar")
-        // .selectAll("svg")
+        .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
         .attr("width", width)
@@ -53,7 +54,7 @@ function load_blender() {
     d3.json("tasks_records/data.json", function(error, json) {
         if (error) throw error;
 
-        console.log( json );
+        // console.log( json );
 
         json = json.blender_data;
 
@@ -62,7 +63,7 @@ function load_blender() {
             .rollup(function(d) { return d[0].Done; })
             .object(json);
 
-        console.log( data );
+        // console.log( data );
 
         rect.filter(function(d) { return d in data; })
             .attr("fill", function(d) { return color(data[d]); })
@@ -83,4 +84,4 @@ function load_blender() {
 
 };
 
-// $(load_blender());
+$(load_blender);
