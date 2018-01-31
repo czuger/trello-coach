@@ -5,7 +5,7 @@ set :application, 'trello-coach'
 set :repo_url, 'git@github.com:czuger/trello-coach.git'
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.5.0'
+set :rbenv_ruby, '2.4.2'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
