@@ -1,4 +1,5 @@
 require 'trello'
+require 'colorize'
 
 namespace :data do
 
@@ -32,6 +33,31 @@ namespace :data do
     BlenderSurvey.create!(blender_task_done: checklist_item.state == 'complete' )
 
     checklist.update_item_state( checklist_item.id, false )
+
+  end
+
+  desc 'Liste all lists'
+  task lists: :environment do
+
+    credentials = YAML.load( File.open( 'credentials/data.yml.priv', 'r' ).read )
+
+    Trello.configure do |config|
+      config.developer_public_key = credentials['developer_key']
+      config.member_token = credentials['token']
+    end
+
+    ced = Trello::Member.find('deadzed' )
+
+    odd = false
+    printf "%-40s %-40s %s\n", 'Board', 'List', 'List id'
+    puts
+    ced.boards.each do |board|
+      board.lists.each do |list|
+        # puts "#{board.name}/#{list.name} -> list id : #{list.id}"
+        printf "%-40s %-40s %s\n".send( odd ? 'red' : 'black' ), board.name, list.name, list.id
+        odd = !odd
+      end
+    end
 
   end
 
