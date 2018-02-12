@@ -15,11 +15,9 @@ namespace :git do
       c.password = credentials[:password]
     end
 
-    final_hash = {}
-
     credentials[:repositories_names].each do |rn|
 
-      final_hash[rn] ||= []
+      final_hash = []
       results = Octokit.get( "repos/czuger/#{rn}/stats/commit_activity" )
 
       results.each do |result|
@@ -27,17 +25,14 @@ namespace :git do
         next if week < DateTime.new( Time.new.year )
 
         result[:days].each_with_index do |amount, i|
-          final_hash[rn] << [week + i, amount]
+          final_hash << { 'Date': (week + i).strftime( '%F' ), 'DoneCount': amount }
+        end
+
+        File.open( "public/git_repositories/#{rn}.json", 'w' ) do |file|
+          file.write( final_hash.to_json )
         end
 
       end
     end
-
-    File.open( 'data/stats.json', 'w' ) do |file|
-      file.write( final_hash.to_json )
-    end
-
   end
-
-
 end

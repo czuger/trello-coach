@@ -1,0 +1,11 @@
+#main-row.container
+  %h1.text-center
+    Git activity
+  - @git_repositories.each do |repository|
+    %h2.text-center= repository.gsub('-','_').humanize
+    %div{ id: repository }
+
+= hidden_field_tag :task_record_controller, true
+
+= hidden_field_tag :git_repositories, @git_repositories_json
+= hidden_field_tag :git_summary_controller, true

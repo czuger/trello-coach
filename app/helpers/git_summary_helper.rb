@@ -1,0 +1,2 @@
+module GitSummaryHelper
+end
