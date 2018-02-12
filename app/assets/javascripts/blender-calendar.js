@@ -1,6 +1,6 @@
 // From : https://bl.ocks.org/mbostock/4063318
 
-function load_blender() {
+function do_load_blender() {
 
     // console.log( 'Loading D3 graph' )
 
@@ -51,7 +51,7 @@ function load_blender() {
         .enter().append("path")
         .attr("d", pathMonth);
 
-    d3.json("tasks_records/data.json", function(error, json) {
+    d3.json("/tasks_records/data.json", function(error, json) {
         if (error) throw error;
 
         // console.log( json );
@@ -82,6 +82,12 @@ function load_blender() {
             + "H" + (w0 + 1) * cellSize + "Z";
     }
 
+};
+
+function load_blender() {
+    if($('#task_record_controller').val() == 'true' ){
+        do_load_blender();
+    }
 };
 
 $(load_blender);

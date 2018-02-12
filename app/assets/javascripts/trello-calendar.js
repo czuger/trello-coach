@@ -1,6 +1,6 @@
 // From : https://bl.ocks.org/mbostock/4063318
 
-function load_trello() {
+function do_load_trello() {
 
     // console.log( 'Loading D3 graph' )
 
@@ -54,7 +54,7 @@ function load_trello() {
         .enter().append("path")
         .attr("d", pathMonth);
 
-    d3.json("tasks_records/data.json", function(error, json) {
+    d3.json("/tasks_records/data.json", function(error, json) {
         if (error) throw error;
 
         // console.log( json );
@@ -85,6 +85,12 @@ function load_trello() {
             + "H" + (w0 + 1) * cellSize + "Z";
     }
 
+};
+
+function load_trello() {
+    if($('#task_record_controller').val() == 'true' ){
+        do_load_trello();
+    }
 };
 
 $(load_trello);

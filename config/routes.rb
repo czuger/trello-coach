@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'git_summary/show'
+
   get 'monitoring/show'
 
   get 'tasks_records/show'
