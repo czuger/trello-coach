@@ -22,12 +22,10 @@
         / Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li.active
-              = link_to 'Trello monitoring', tasks_records_show_url
-              %span.sr-only (current)
-            %li
-              = link_to 'Git monitoring', git_summary_show_url
-
+            %li{ class: current_path( tasks_records_show_path ) }
+              = link_to 'Trello monitoring', tasks_records_show_path
+            %li{ class: current_path( git_summary_show_path ) }
+              = link_to 'Git monitoring', git_summary_show_path
 
 
     = yield
