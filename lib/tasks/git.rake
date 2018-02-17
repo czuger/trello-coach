@@ -17,8 +17,12 @@ namespace :git do
 
     credentials[:repositories_names].each do |rn|
 
+      puts "retrieveing data for #{rn}"
+
       final_hash = []
       results = Octokit.get( "repos/czuger/#{rn}/stats/commit_activity" )
+
+      puts "results = #{results}"
 
       results.each do |result|
         week = Time.at(result[:week]).to_datetime

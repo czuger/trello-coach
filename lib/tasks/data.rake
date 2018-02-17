@@ -19,6 +19,7 @@ namespace :data do
 
     counts.keys.each do |k|
       credentials['list_ids'][k.to_s].each do |l_id|
+        puts "retrieveing data for #{l_id}"
         counts[k] += Trello::List.find( l_id ).cards.count
       end
     end
