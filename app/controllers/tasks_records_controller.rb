@@ -21,7 +21,7 @@ class TasksRecordsController < ApplicationController
     blender_data = []
 
     TasksRecord.where( stock_line: false ).order( 'id' ).all.each do |task_record|
-      tasks_data << { 'DoneCount' => task_record.done_count - last_closed_tasks_count, 'Date' => task_record.created_at.strftime( '%F' ) }
+      tasks_data << { 'Count' => task_record.done_count - last_closed_tasks_count, 'Date' => task_record.created_at.strftime( '%F' ) }
       last_closed_tasks_count = task_record.done_count
     end
 
