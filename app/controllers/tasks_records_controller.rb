@@ -7,9 +7,12 @@ class TasksRecordsController < ApplicationController
       f.xAxis( categories:  TasksRecord.where( stock_line: false ).pluck( :created_at ).map{ |e| e.strftime( '%F' ) } )
       # f.responsive( rules: [ { condition: { maxWidth: 500 } } ] )
     end
+    set_data
   end
 
-  def data
+  private
+
+  def set_data
 
     # pp TasksRecord.all
 
@@ -26,7 +29,8 @@ class TasksRecordsController < ApplicationController
       blender_data << { 'Done' => blender_survey.blender_task_done ? 1 : 0, 'Date' => blender_survey.created_at.strftime( '%F' ) }
     end
 
-    render json: { tasks_data: tasks_data, blender_data: blender_data }
+    @tasks_data = tasks_data.to_json
+    @blender_data = blender_data.to_json
   end
 
 end

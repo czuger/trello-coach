@@ -51,25 +51,21 @@ function do_load_blender() {
         .enter().append("path")
         .attr("d", pathMonth);
 
-    d3.json("/tasks_records/data.json", function(error, json) {
-        if (error) throw error;
+    // console.log( json );
 
-        // console.log( json );
+    var json = JSON.parse( $('#blender_data').val() )
 
-        json = json.blender_data;
+    var data = d3.nest()
+        .key(function(d) { return d.Date; })
+        .rollup(function(d) { return d[0].Done; })
+        .object(json);
 
-        var data = d3.nest()
-            .key(function(d) { return d.Date; })
-            .rollup(function(d) { return d[0].Done; })
-            .object(json);
+    // console.log( data );
 
-        // console.log( data );
-
-        rect.filter(function(d) { return d in data; })
-            .attr("fill", function(d) { return color(data[d]); })
-            .append("title")
-            .text(function(d) { return d + ": " + data[d] + " tasks done"; });
-    });
+    rect.filter(function(d) { return d in data; })
+        .attr("fill", function(d) { return color(data[d]); })
+        .append("title")
+        .text(function(d) { return d + ": " + data[d] + " tasks done"; });
 
     function pathMonth(t0) {
         var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
