@@ -1,6 +1,6 @@
 $ ->
   if window.location.pathname == '/' || window.location.pathname == '/tasks_records/show'
-    data = build_calendar(
+    build_calendar(
       '#trello-calendar'
       JSON.parse( $('#tasks_data').val() )
       [0,6]

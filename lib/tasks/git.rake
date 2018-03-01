@@ -15,6 +15,8 @@ namespace :git do
       c.password = credentials[:password]
     end
 
+    git_data = {}
+
     credentials[:repositories_names].each do |rn|
 
       puts "retrieveing data for #{rn}"
@@ -29,14 +31,15 @@ namespace :git do
         next if week < DateTime.new( Time.new.year )
 
         result[:days].each_with_index do |amount, i|
-          final_hash << { 'Date': (week + i).strftime( '%F' ), 'DoneCount': amount }
+          final_hash << { 'Date': (week + i).strftime( '%F' ), 'Count': amount }
         end
-
-        File.open( "public/git_repositories/#{rn}.json", 'w' ) do |file|
-          file.write( final_hash.to_json )
-        end
-
       end
+
+      git_data[rn] = final_hash
+    end
+
+    File.open( "data/git_data.json", 'w' ) do |file|
+      file.write( git_data.to_json )
     end
   end
 end

@@ -4,7 +4,7 @@
 
 $ ->
   if window.location.pathname == '/dailies/show'
-    data = build_calendar(
+    build_calendar(
       '#blender-calendar'
       JSON.parse( $('#blender_data').val() )
       [0,1]
