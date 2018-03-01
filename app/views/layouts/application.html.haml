@@ -24,8 +24,11 @@
           %ul.nav.navbar-nav
             %li{ class: current_path( tasks_records_show_path ) }
               = link_to 'Trello monitoring', tasks_records_show_path
+
             %li{ class: current_path( git_summary_show_path ) }
               = link_to 'Git monitoring', git_summary_show_path
 
+            %li{ class: current_path( dailies_show_path ) }
+              = link_to 'Dailies', dailies_show_path
 
     = yield

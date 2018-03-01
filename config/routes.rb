@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dailies/show'
+
   get 'git_summary/show'
 
   get 'monitoring/show'

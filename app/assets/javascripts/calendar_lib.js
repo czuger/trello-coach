@@ -4,8 +4,8 @@
 // json_data is an array of hash. Each hash is of the form { "Date" : "YYYY-MM-DD", "Count" : <number> }
 // range is an array : the range of your numbers in "Count". Exemple : [ 0, 6 ]
 // colors is an array of colors associated to your domain (one color per interval 7 in this example). Exemple : ["#ffffff", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]
-
-function build_calendar( calendar_data, range, colors, hoover_string ) {
+// hoover_string is a string with two replaceable string <<Date>> and <<Count>> like '<<Date>> : <<Count>> tasks done'
+function build_calendar( calendar_id, calendar_data, range, colors, hoover_string ) {
 
     // console.log( 'Loading D3 graph' )
 
@@ -21,7 +21,7 @@ function build_calendar( calendar_data, range, colors, hoover_string ) {
 
     // console.log( d3.select("#trello-calendar") );
 
-    var svg = d3.select("#trello-calendar")
+    var svg = d3.select(calendar_id)
         .selectAll("svg")
         .data(d3.range(2018, 2019))
         .enter().append("svg")
