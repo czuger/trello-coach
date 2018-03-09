@@ -31,7 +31,7 @@ namespace :data do
     checklist = Trello::Checklist.find(credentials['blender_checklist_id'])
     checklist_item = checklist.items.first
     # p checklist_item.state
-    BlenderSurvey.create!(blender_task_done: checklist_item.state == 'complete' )
+    DailiesSurvey.create!(blender_task_done: checklist_item.state == 'complete' )
 
     checklist.update_item_state( checklist_item.id, false )
 
@@ -66,7 +66,7 @@ namespace :data do
   task generate: :environment do
 
     TasksRecord.delete_all
-    BlenderSurvey.delete_all
+    DailiesSurvey.delete_all
 
     done_count = 0
     todo_count = 10
@@ -75,7 +75,7 @@ namespace :data do
     0.upto(100).each do |day|
       stock_line = (TasksRecord.count == 0)
       TasksRecord.create!( done_count: done_count, todo_count: todo_count, stock_line: stock_line, created_at: start_date+day )
-      BlenderSurvey.create!(blender_task_done: rand( 1 .. 2 ) == 1, created_at: start_date+day )
+      DailiesSurvey.create!(blender_task_done: rand(1 .. 2 ) == 1, created_at: start_date+day )
       done_count += rand( 0 .. 6 )
       todo_count += rand( 0 .. 10 )
     end

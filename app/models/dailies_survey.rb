@@ -1,0 +1,2 @@
+class DailiesSurvey < ApplicationRecord
+end
