@@ -23,7 +23,7 @@ function build_calendar( calendar_id, calendar_data, range, colors, hoover_strin
 
     var svg = d3.select(calendar_id)
         .selectAll("svg")
-        .data(d3.range(2018, 2019))
+        .data(d3.range(2019, 2020))
         .enter().append("svg")
         .attr("width", width)
         .attr("height", height)
