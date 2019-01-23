@@ -1,12 +1,12 @@
 class TasksRecordsController < ApplicationController
 
   def show
-    tr = TasksRecord.where( stock_line: false ).where( 'created_at > ?', Time.now - 1.year )
+    tr = TasksRecord.where( stock_line: false ).where( 'created_at > ?', Time.now - 6.month )
 
     @tasks_chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.series(name: 'Todo tasks', yAxis: 0, data: tr.pluck( :todo_count ) )
       f.yAxis [ {title: {text: 'Todo tasks', margin: 70} } ]
-      f.xAxis( categories:  tr.pluck( :created_at ).map{ |e| e.strftime( '%F' ) } )
+      f.xAxis( categories: tr.pluck( :created_at ).map{ |e| e.strftime( '%F' ) } )
       # f.responsive( rules: [ { condition: { maxWidth: 500 } } ] )
     end
     set_data

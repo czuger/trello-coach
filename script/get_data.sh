@@ -8,3 +8,7 @@ RAILS_ENV=production bundle exec rake data:retrieve 2>log/daily_rake.err >>log/d
 RAILS_ENV=production bundle exec rake git:retrieve 2>log/git_rake.err >>log/git_rake.log
 sleep 5
 RAILS_ENV=production bundle exec rake git:retrieve 2>log/git_rake.err >>log/git_rake.log
+
+sleep 5
+
+RAILS_ENV=production bundle exec rake inactivity:check 2>log/inactivity_check.err >>log/inactivity_check.log

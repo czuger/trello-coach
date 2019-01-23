@@ -72,3 +72,5 @@ gem 'colorize'
 gem 'octokit'
 
 gem 'listen', '>= 3.0.5', '< 3.2'
+
+gem 'pluck_to_hash'

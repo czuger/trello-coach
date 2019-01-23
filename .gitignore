@@ -27,3 +27,5 @@
 credentials/*.yml
 public/git_repositories/*
 data/*.json
+
+mail_user_data.yml
