@@ -1,7 +1,8 @@
 class TasksRecordsController < ApplicationController
 
   def show
-    tr = TasksRecord.where( stock_line: false ).where( 'created_at > ?', Time.now - 6.month )
+    # Data for the line graph
+    tr = TasksRecord.where( stock_line: false ).where( 'created_at > ?', Time.now - 1.month )
 
     @tasks_chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.series(name: 'Todo tasks', yAxis: 0, data: tr.pluck( :todo_count ) )
@@ -15,10 +16,10 @@ class TasksRecordsController < ApplicationController
   private
 
   def set_data
-
+    # Data for the trello monitoring calendar
     # pp TasksRecord.all
 
-    tr = TasksRecord.where( stock_line: true ).where( 'created_at > ?', DateTime.now.beginning_of_year )
+    tr = TasksRecord.where( stock_line: false ).where( 'created_at > ?', DateTime.now.beginning_of_year )
 
     last_closed_tasks_count = tr.first
     last_closed_tasks_count = last_closed_tasks_count ? last_closed_tasks_count.done_count : 0
