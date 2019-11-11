@@ -7,7 +7,10 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-
+# This is not a public server, thus it is deployed on the staging server (to avoid stealing mem on the prod server)
+# That is why it has no production deployment file and only a staging.
+# Having a production deployment file for a project that is deployed on the staging server is not a good idea.
+server 'dw', roles: %w{app web db}
 
 # role-based syntax
 # ==================

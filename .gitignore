@@ -24,6 +24,7 @@
 
 .idea
 *.priv
+
 credentials/*.yml
 public/git_repositories/*
 data/*.json

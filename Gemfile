@@ -52,7 +52,7 @@ group :development do
 
   gem 'factory_bot_rails'
 
-  gem 'capistrano', '3.10.1'
+  gem 'capistrano', '3.11.2'
   gem 'capistrano-rails', '~> 1.3'
   gem 'capistrano-rbenv', '~> 2.1'
   gem 'capistrano3-puma'

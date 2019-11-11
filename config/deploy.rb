@@ -5,7 +5,7 @@ set :application, 'trello-coach'
 set :repo_url, 'git@github.com:czuger/trello-coach.git'
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.3'
+set :rbenv_ruby, '2.6.5'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -24,7 +24,7 @@ set :rbenv_ruby, '2.6.3'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/mail_user_data.yml', 'config/database.yml', 'config/secrets.yml', 'db/production.sqlite3'
+append :linked_files, 'config/mail_user_data.yml', 'config/database.yml', 'config/secrets.yml', 'db/staging.sqlite3'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'credentials'
