@@ -1,11 +1,11 @@
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.10.1'
+lock '~> 3.11.2'
 
 set :application, 'trello-coach'
 set :repo_url, 'git@github.com:czuger/trello-coach.git'
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.4.2'
+set :rbenv_ruby, '2.6.3'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
